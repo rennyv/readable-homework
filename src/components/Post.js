@@ -1,12 +1,18 @@
 import React, { Component } from 'react'
+import { Panel } from 'react-bootstrap'
 
 class Post extends Component {
 
   render() {
     const { post } = this.props
-       
+
+    const title = (<div>
+                      <span>{post.title}</span>
+                      <span className='pull-right glyphicon glyphicon-info-sign'></span>
+                    </div>)
+    
     return (
-      <div className="post">
+      <Panel header={title}>
         <div className="body">{ post.body }</div>
         <div>
           <div className="voteScore pull-right">
@@ -15,7 +21,7 @@ class Post extends Component {
             <span className="glyphicon glyphicon-thumbs-down" />
           </div>
         </div>
-      </div>
+      </Panel>
     )
   }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import * as api from '../utils/api.js'
-import Post from './Posts'
-import { Grid, Row, Col, Panel } from 'react-bootstrap'
+import Post from './Post'
+import { Grid, Row, Col } from 'react-bootstrap'
 
 class App extends Component {
   state = {
@@ -32,9 +32,8 @@ class App extends Component {
               Posts:
             </h4>
             {posts.map((post) => (
-              <Panel key={post.id} header={ post.title } >
-                <Post post={post} />
-              </Panel>
+              <Post key={post.id} post={post} />
+              
             ))}
           </Col>
           <Col xs={6} md={4}>
