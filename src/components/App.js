@@ -5,7 +5,8 @@ import { Grid, Row, Col, Panel } from 'react-bootstrap'
 
 class App extends Component {
   state = {
-    posts: []
+    posts: [],
+    categories: []
   }
 
   componentDidMount = () => {
@@ -13,30 +14,42 @@ class App extends Component {
       console.log(posts)
       this.setState({posts})
     })
+
+    api.getCategories().then((categories => {
+      console.log(categories)
+      this.setState({categories})
+    }))
   }
 
   render() {
-    const { posts } = this.state
+    const { posts, categories } = this.state
 
     return (
       <Grid>
-        <Row>
-          
-        </Row>
         <Row>
           <Col xs={12} md={8}>
             <h4>
               Posts:
             </h4>
             {posts.map((post) => (
-              <Panel key={post.id} header={ post.title }>
+              <Panel key={post.id} header={ post.title } >
                 <Post post={post} />
               </Panel>
             ))}
           </Col>
           <Col xs={6} md={4}>
             <h4>Sort by:</h4>
-            <h4>Catagories:</h4>
+              <ul>
+                <li>Timestamp</li>
+                <li>Score</li>
+              </ul>
+            <h4>Categories:</h4>
+              <ul>
+                {categories.map((category) => (
+                  <li key={category.name}>{category.name}</li>
+                ))}
+              </ul>
+
           </Col>
         </Row>
       </Grid>

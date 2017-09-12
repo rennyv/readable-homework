@@ -8,6 +8,13 @@ class Post extends Component {
     return (
       <div className="post">
         <div className="body">{ post.body }</div>
+        <div>
+          <div className="voteScore pull-right">
+            <span className="glyphicon glyphicon-thumbs-up" />
+            <span> { post.voteScore} </span>
+            <span className="glyphicon glyphicon-thumbs-down" />
+          </div>
+        </div>
       </div>
     )
   }
