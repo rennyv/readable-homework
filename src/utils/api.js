@@ -1,6 +1,17 @@
-//Placeholders
-const API_ID = process.env.REACT_APP_API_ID
-const APP_KEY = process.env.REACT_APP_APP_KEY
 
-//Server
-const READABLE_SERVER = process.env.READABLE_SERVER_ADDRESS
+const api = process.env.REACT_READABLE_API_URL || 'http://localhost:3001'
+
+let token = localStorage.token
+
+if (!token)
+  token = localStorage.token = Math.random().toString(36).substr(-8)
+
+const headers = {
+  'Accept': 'application/json',
+  'Authorization': token
+}
+
+
+export const getAll = () =>
+  fetch(`${api}/posts`, { headers })
+    .then(res => res.json())

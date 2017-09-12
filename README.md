@@ -6,6 +6,6 @@
  - take notice of the port the server is running on.
 
  ## Frontend
- - in the .env place the ip address of the server, defaulted to localhost:3001
+ - Set REACT_READABLE_API_URL environmental variable for the server, defaulted to localhost:3001
  - install packages with npm install
  - run with yarn start
