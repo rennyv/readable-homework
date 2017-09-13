@@ -10,17 +10,20 @@ class Post extends Component {
                       <span>{post.title}</span>
                       <span className='pull-right glyphicon glyphicon-info-sign'></span>
                     </div>)
-    
-    return (
-      <Panel header={title}>
-        <div className="body">{ post.body }</div>
-        <div>
-          <div className="voteScore pull-right">
+    const footer = (
+      <div>
+        <span>{ post.author }</span>
+        <span className="voteScore pull-right">
             <span className="glyphicon glyphicon-thumbs-up" />
             <span> { post.voteScore} </span>
             <span className="glyphicon glyphicon-thumbs-down" />
-          </div>
-        </div>
+          </span>
+      </div>
+    )
+    
+    return (
+      <Panel header={ title } footer={ footer } bsStyle="info">
+        { post.body }
       </Panel>
     )
   }
