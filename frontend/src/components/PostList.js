@@ -1,30 +1,19 @@
 import React, {Component} from 'react'
 import Post from './Post'
-import * as api from '../utils/api.js'
-import { Row, Col, Button, ButtonGroup } from 'react-bootstrap'
+import { Row, Button, ButtonGroup } from 'react-bootstrap'
+import { Link, withRouter } from 'react-router-dom'
+import { connect } from 'react-redux'
 
 class PostList extends Component{
-  state = {
-      posts: [],
-      categories: []
+  render(){
+    //const { posts, categories } = this.state
+    const { posts, categories } = this.props
+
+    if (!(posts.length > 0 )) {
+      return (<p>No Posts</p>)
     }
 
-  componentDidMount = () => {
-    api.getAll().then((posts) => {
-      console.log(posts)
-      this.setState({posts})
-    })
-
-    api.getCategories().then((categories => {
-      console.log(categories)
-      this.setState({categories})
-    }))
-  }
-
-  render(){
-    const { posts, categories } = this.state
-
-    return (
+  return (
       <div>
         <br />
         <Row>
@@ -48,4 +37,12 @@ class PostList extends Component{
   }
 }
 
-export default PostList
+function mapStateToProps(state) {
+  const { posts, categories } = state
+  return {
+    posts,
+    categories
+  }
+}
+
+export default withRouter(connect(mapStateToProps)(PostList))
