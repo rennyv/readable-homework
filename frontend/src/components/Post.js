@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { Panel } from 'react-bootstrap'
+import { Panel, Button } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import { updateVoteScore } from '../actions'
 
 class Post extends Component {
 
   render() {
-    const { post, comments } = this.props
+    const { post, comments, upVoteScore, downVoteScore } = this.props
     const myComments = comments.filter((comment) => comment.parentId !== post.id && !comment.deleted)
 
     const header = (<div>
@@ -17,9 +18,13 @@ class Post extends Component {
       <div>
         <span>{ post.author }</span>
         <span className="voteScore pull-right">
-            <span className="glyphicon glyphicon-thumbs-up" />            
-            <span> { post.voteScore} </span>
-            <span className="glyphicon glyphicon-thumbs-down" />
+            <Button bsSize='xsmall' onClick={() => upVoteScore(post.id)}>
+              <span className="glyphicon glyphicon-thumbs-up" />
+            </Button>
+            <span> { post.voteScore } </span>
+            <Button bsSize='xsmall' onClick={() => downVoteScore(post.id)}>
+              <span className="glyphicon glyphicon-thumbs-down" />
+            </Button>
           </span>
       </div>
     )
@@ -39,4 +44,11 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Post))
+function mapDispatchToProps(dispatch){
+  return {
+    upVoteScore : (postId) => dispatch(updateVoteScore(postId, "upVote")),
+    downVoteScore : (postId) => dispatch(updateVoteScore(postId, "downVote")),
+  }
+}
+
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Post))

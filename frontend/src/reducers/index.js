@@ -17,6 +17,8 @@ function posts (state = initialPostsState, action) {
         case actions.CHANGE_POST_ORDER:
           let newState = state.slice().sort(sortBy(action.order))
           return newState
+        case actions.UPDATE_POST_VOTESCORE:
+          return state
         default:
             return state
     }

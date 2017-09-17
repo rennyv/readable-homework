@@ -1,6 +1,7 @@
 import * as api from '../utils/api.js'
 
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
+export const UPDATE_POST_VOTESCORE = 'UPDATE_POST_VOTESCORE'
 
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
@@ -32,6 +33,22 @@ export function getAllPosts() {
           return post
         })
       }) 
+  }
+}
+
+function gotVoteUpdate(postId, vote){
+  return {
+    type: UPDATE_POST_VOTESCORE,
+    postId,
+    vote
+  }
+}
+
+export function updateVoteScore(postId, vote){
+  return dispatch => {
+    api.updatePostVoteScore(postId, vote).then((data) => {
+      dispatch(gotVoteUpdate(postId, vote))
+    })    
   }
 }
 

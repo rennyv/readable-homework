@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
-import { withRouter } from 'react-router-dom'
+import { withRouter, Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changePostsOrder } from '../actions'
 
 class PostList extends Component{
   render(){
-    //const { posts, categories } = this.state
     const { posts, categories, postsOrder, changePostsOrder } = this.props
 
     const filter = this.props.match.params.category
@@ -21,20 +20,35 @@ class PostList extends Component{
     }
 
     if (!(curPosts.length > 0 )) {
-      return (<p>No Posts</p>)
+      return (<div>
+        <br />
+        <Row>
+        <Link to='/'>
+          <Button bsStyle={!filter ? "primary" : "default"}>All</Button>
+        </Link>
+        {
+          categories.map((category) => (
+            <Link key={category.name} to={category.path}>
+              <Button bsStyle={filter === category.path ? "primary" : "default"}>{category.name}</Button>
+            </Link>
+        ))}
+      </Row>
+      </div>)
     }
 
     return (
       <div>
         <br />
         <Row>
-          <ButtonGroup>
-            <Button bsStyle="primary">All</Button>
-            {
-              categories.map((category) => (
-                <Button key={category.name}>{category.name}</Button>
-            ))}
-          </ButtonGroup>
+          <Link to='/'>
+            <Button bsStyle={!filter ? "primary" : "default"}>All</Button>
+          </Link>
+          {
+            categories.map((category) => (
+              <Link key={category.name} to={category.path}>
+                <Button bsStyle={filter === category.path ? "primary" : "default"}>{category.name}</Button>
+              </Link>
+          ))}
         </Row>
         <br />
         <Row>
