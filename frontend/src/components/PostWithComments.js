@@ -3,6 +3,7 @@ import { Row } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Post from './Post' 
+import Comment from './Comment'
 
 class PostWithComments extends Component {
 
@@ -14,7 +15,7 @@ class PostWithComments extends Component {
     })
 
     const post = postList[0]
-    
+
     if (!post) {
       
       return (
@@ -29,6 +30,8 @@ class PostWithComments extends Component {
         </div>)
     }
 
+    const postComments = comments.filter((comment) => comment.parentId !== postId )
+
     return (
       <div>
         <Row>
@@ -38,6 +41,13 @@ class PostWithComments extends Component {
         <Row>
           <Post key={post.id} post={post} />
         </Row>
+        <br />
+        {
+          postComments.map((comment) => (
+          <Row key={comment.id}>
+            <Comment comment={comment} />
+          </Row>
+        ))}
       </div>
     )
   }
