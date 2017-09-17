@@ -10,10 +10,12 @@ class Post extends Component {
     const { post, comments, upVoteScore, downVoteScore } = this.props
     const myComments = comments.filter((comment) => comment.parentId !== post.id && !comment.deleted)
 
+    const postId = this.props.match.params.postId
+
     const header = (<div>
                       <span>{post.title}</span>{ (myComments.length>0) ? (<Badge>{myComments.length }</Badge> ) :  (<span />) } 
                       <span className='pull-right'>
-                        <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link>
+                        { (!postId)  ?  <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link> : <span />  }
                         <Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button>
                         <Button bsSize='xsmall'><span className='glyphicon glyphicon-remove'></span></Button>
                       </span>
