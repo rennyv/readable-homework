@@ -3,7 +3,6 @@ import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
 import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import sortBy from 'sort-by'
 import { changePostsOrder } from '../actions'
 
 class PostList extends Component{
@@ -11,11 +10,19 @@ class PostList extends Component{
     //const { posts, categories } = this.state
     const { posts, categories, postsOrder, changePostsOrder } = this.props
 
-    if (!(posts.length > 0 )) {
-      return (<p>No Posts</p>)
+    const filter = this.props.match.params.category
+    let curPosts = []
+    if(filter){
+      curPosts= posts && posts.filter((post)=> {
+        return post.category === filter
+      })
+    } else {
+      curPosts = posts
     }
 
-    posts.sort(sortBy(postsOrder))
+    if (!(curPosts.length > 0 )) {
+      return (<p>No Posts</p>)
+    }
 
     return (
       <div>
@@ -34,15 +41,15 @@ class PostList extends Component{
           <ButtonGroup>
             <Button bsStyle={postsOrder === "author" ? "primary" : "default"} onClick={() => changePostsOrder("author")}>Author<span className="glyphicon glyphicon-sort-by-alphabet"></span></Button>
             <Button bsStyle={postsOrder === "-author" ? "primary" : "default"} onClick={() => changePostsOrder("-author")}>Author<span className="glyphicon glyphicon-sort-by-alphabet-alt"></span></Button>
-            <Button bsStyle={postsOrder === "voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-alphabet"></span></Button>
-            <Button bsStyle={postsOrder === "-voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("-voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-alphabet-alt"></span></Button>
+            <Button bsStyle={postsOrder === "-voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("-voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-order-alt"></span></Button>
+            <Button bsStyle={postsOrder === "voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-order"></span></Button>
           </ButtonGroup>
         </Row>
         <br />
 
         <Row>
           {
-            posts.map((post) => (
+            curPosts.map((post) => (
               <Post key={post.id} post={post} />
           ))}
         </Row>
@@ -55,8 +62,6 @@ class PostList extends Component{
 
 function mapStateToProps(state) {
   const { posts, categories, postsOrder } = state
-  posts.sort(sortBy(postsOrder.order))
-  
   
   return {
     posts,

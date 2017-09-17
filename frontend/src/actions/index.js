@@ -26,6 +26,7 @@ export function getAllPosts() {
    return dispatch => {
       api.getAllPosts().then( (data) => {
         dispatch(gotPosts(data))
+        dispatch(changePostsOrder("author"))
         data.map( (post) => {
           dispatch(getComments(post.id))
           return post

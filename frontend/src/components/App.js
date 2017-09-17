@@ -20,6 +20,7 @@ class App extends Component {
         <Grid>
           <Switch>
             <Route exact path="/" component={PostList} />
+            <Route exact path="/:category" component={PostList} />
             <Route exact path={'/:category/:postId'} component={PostWithComments} />
           </Switch>
         </Grid>
