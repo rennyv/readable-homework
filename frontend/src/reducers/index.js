@@ -18,7 +18,12 @@ function posts (state = initialPostsState, action) {
           let newState = state.slice().sort(sortBy(action.order))
           return newState
         case actions.UPDATE_POST_VOTESCORE:
-          return state
+          return state.map(post => {
+            if(post.id === action.post.id) {
+              return action.post
+            }
+            return post
+          })
         default:
             return state
     }

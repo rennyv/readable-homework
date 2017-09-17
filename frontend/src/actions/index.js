@@ -36,18 +36,17 @@ export function getAllPosts() {
   }
 }
 
-function gotVoteUpdate(postId, vote){
+function gotVoteUpdate(post){
   return {
     type: UPDATE_POST_VOTESCORE,
-    postId,
-    vote
+    post
   }
 }
 
 export function updateVoteScore(postId, vote){
   return dispatch => {
-    api.updatePostVoteScore(postId, vote).then((data) => {
-      dispatch(gotVoteUpdate(postId, vote))
+    api.updatePostVoteScore(postId, vote).then((newPost) => {
+      dispatch(gotVoteUpdate(newPost))
     })    
   }
 }
