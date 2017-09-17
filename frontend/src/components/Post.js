@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Panel, Button } from 'react-bootstrap'
+import { Panel, Button, Badge } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { updateVoteScore } from '../actions'
@@ -11,8 +11,12 @@ class Post extends Component {
     const myComments = comments.filter((comment) => comment.parentId !== post.id && !comment.deleted)
 
     const header = (<div>
-                      <span>{post.title}</span>{ (myComments.length>0) ? (<span> ({myComments.length })</span> ) :  (<span />) } 
-                      <Link to={`/${post.category}/${post.id}`}><span className='pull-right glyphicon glyphicon-info-sign'></span></Link>
+                      <span>{post.title}</span>{ (myComments.length>0) ? (<Badge>{myComments.length }</Badge> ) :  (<span />) } 
+                      <span className='pull-right'>
+                        <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link>
+                        <Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button>
+                        <Button bsSize='xsmall'><span className='glyphicon glyphicon-remove'></span></Button>
+                      </span>
                     </div>)
     const footer = (
       <div>
