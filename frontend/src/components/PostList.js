@@ -57,6 +57,8 @@ class PostList extends Component{
             <Button bsStyle={postsOrder === "-author" ? "primary" : "default"} onClick={() => changePostsOrder("-author")}>Author<span className="glyphicon glyphicon-sort-by-alphabet-alt"></span></Button>
             <Button bsStyle={postsOrder === "-voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("-voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-order-alt"></span></Button>
             <Button bsStyle={postsOrder === "voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-order"></span></Button>
+            <Button bsStyle={postsOrder === "-timestamp" ? "primary" : "default"} onClick={() => changePostsOrder("-timestamp")}>Timestamp<span className="glyphicon glyphicon-sort-by-order-alt"></span></Button>
+            <Button bsStyle={postsOrder === "timestamp" ? "primary" : "default"} onClick={() => changePostsOrder("timestamp")}>Timestamp<span className="glyphicon glyphicon-sort-by-order"></span></Button>
           </ButtonGroup>
         </Row>
         <br />
