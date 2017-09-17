@@ -1,19 +1,23 @@
 import React, {Component} from 'react'
 import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
-import { Link, withRouter } from 'react-router-dom'
+import { withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
+import sortBy from 'sort-by'
+import { changePostsOrder } from '../actions'
 
 class PostList extends Component{
   render(){
     //const { posts, categories } = this.state
-    const { posts, categories } = this.props
+    const { posts, categories, postsOrder, changePostsOrder } = this.props
 
     if (!(posts.length > 0 )) {
       return (<p>No Posts</p>)
     }
 
-  return (
+    posts.sort(sortBy(postsOrder))
+
+    return (
       <div>
         <br />
         <Row>
@@ -27,22 +31,45 @@ class PostList extends Component{
         </Row>
         <br />
         <Row>
+          <ButtonGroup>
+            <Button bsStyle={postsOrder === "author" ? "primary" : "default"} onClick={() => changePostsOrder("author")}>Author<span className="glyphicon glyphicon-sort-by-alphabet"></span></Button>
+            <Button bsStyle={postsOrder === "-author" ? "primary" : "default"} onClick={() => changePostsOrder("-author")}>Author<span className="glyphicon glyphicon-sort-by-alphabet-alt"></span></Button>
+            <Button bsStyle={postsOrder === "voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-alphabet"></span></Button>
+            <Button bsStyle={postsOrder === "-voteScore" ? "primary" : "default"} onClick={() => changePostsOrder("-voteScore")}>Votes<span className="glyphicon glyphicon-sort-by-alphabet-alt"></span></Button>
+          </ButtonGroup>
+        </Row>
+        <br />
+
+        <Row>
           {
             posts.map((post) => (
               <Post key={post.id} post={post} />
           ))}
         </Row>
+
+
       </div>
     )
   }
 }
 
 function mapStateToProps(state) {
-  const { posts, categories } = state
+  const { posts, categories, postsOrder } = state
+  posts.sort(sortBy(postsOrder.order))
+  
+  
   return {
     posts,
+    postsOrder,
     categories
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PostList))
+function mapDispatchToProps(dispatch){
+  return {
+    changePostsOrder : (order) => dispatch(changePostsOrder(order)),
+  }
+}
+
+  
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostList))

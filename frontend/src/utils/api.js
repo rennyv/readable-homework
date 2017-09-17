@@ -20,3 +20,8 @@ export const getAllCategories = () =>
   fetch(`${api}/categories`, { headers })
     .then(res => res.json())
     .then( data => data.categories)
+  
+export const getCommentsFor = (postId) =>{
+  return fetch(`${api}/posts/${postId}/comments`, { headers })
+      .then(res => res.json())
+}

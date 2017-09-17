@@ -3,7 +3,10 @@ import * as actions from '../actions'
 import { combineReducers } from 'redux'
 
 const initialPostsState = []
+const initialPostSort = "author" 
 const initialCategoriesState = []
+const initialCommentsState = []
+
 
 function posts (state = initialPostsState, action) {
 
@@ -15,16 +18,36 @@ function posts (state = initialPostsState, action) {
     }
 }
 
+function postsOrder (state = initialPostSort, action ){
+  switch (action.type){
+    case actions.CHANGE_POST_ORDER:
+      return action.order
+    default:
+      return state
+  }
+}
+
 function categories (state = initialCategoriesState, action ) {
-    switch (action.type) {
-        case actions.GET_ALL_CATEGORIES:
-            return action.categories
-        default:
-            return state
-    }
+  switch (action.type) {
+    case actions.GET_ALL_CATEGORIES:
+      return action.categories
+    default:
+      return state
+  } 
+}
+
+function comments ( state = initialCommentsState, action) {
+  switch (action.type) {
+    case actions.GET_POST_COMMENTS:
+      return [...state, ...action.comments]
+    default:
+      return state
+  }
 }
 
 export default combineReducers({
-    posts,
-    categories
+  posts,
+  postsOrder,
+  categories,
+  comments
 })
