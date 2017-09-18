@@ -2,11 +2,11 @@ import React, { Component } from 'react'
 import { Panel, Button, Badge } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateVoteScore } from '../actions'
+import { updateCommentVoteScore } from '../actions'
 
 class Comment extends Component {
   render() {
-    const { comment } = this.props
+    const { comment, upVoteScore, downVoteScore } = this.props
     const header = (
       <div>
         <span>Comment</span>
@@ -20,11 +20,11 @@ class Comment extends Component {
       <div>
         <span>{ comment.author }</span>
         <span className="voteScore pull-right">
-          <Button bsSize='xsmall'>
+          <Button bsSize='xsmall' onClick={() => upVoteScore(comment.id)}>
             <span className="glyphicon glyphicon-thumbs-up" />
           </Button>
           <span> { comment.voteScore } </span>
-          <Button bsSize='xsmall'>
+          <Button bsSize='xsmall' onClick={() => downVoteScore(comment.id)}>
             <span className="glyphicon glyphicon-thumbs-down" />
           </Button>
         </span>
@@ -43,7 +43,10 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch){
-  return { }
+  return { 
+    upVoteScore : (commentId) => dispatch(updateCommentVoteScore(commentId, "upVote")),
+    downVoteScore : (commentId) => dispatch(updateCommentVoteScore(commentId, "downVote")),
+  }
 }
 
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Comment))

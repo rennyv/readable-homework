@@ -6,6 +6,8 @@ export const UPDATE_POST_VOTESCORE = 'UPDATE_POST_VOTESCORE'
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
+export const UPDATE_COMMENT_VOTESCORE = 'UPDATE_COMMENT_VOTESCORE'
+
 export const CHANGE_POST_ORDER = 'CHANGE_POST_ORDER'
 
 
@@ -43,10 +45,25 @@ function gotVoteUpdate(post){
   }
 }
 
+function gotCommentVoteUpdate(comment){
+  return {
+    type: UPDATE_COMMENT_VOTESCORE,
+    comment
+  }
+}
+
 export function updateVoteScore(postId, vote){
   return dispatch => {
     api.updatePostVoteScore(postId, vote).then((newPost) => {
       dispatch(gotVoteUpdate(newPost))
+    })    
+  }
+}
+
+export function updateCommentVoteScore(commentId, vote){
+  return dispatch => {
+    api.updateCommentVoteScore(commentId, vote).then((newComment) => {
+      dispatch(gotCommentVoteUpdate(newComment))
     })    
   }
 }

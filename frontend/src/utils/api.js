@@ -37,3 +37,15 @@ export const updatePostVoteScore = (postId, vote) => {
     body: JSON.stringify(body)
   }).then(res => res.json())
 }
+
+export const updateCommentVoteScore = (commentId, vote) => {
+  const body = { "option": vote }
+  return fetch(`${api}/comments/${commentId}`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => res.json())
+}
