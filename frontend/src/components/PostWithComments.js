@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Row } from 'react-bootstrap'
+import { Row, Panel, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Post from './Post' 
@@ -48,6 +48,26 @@ class PostWithComments extends Component {
             <Comment comment={comment} />
           </Row>
         ))}
+        <br />
+        <Row>
+              { /* **id** - Any unique ID. As with posts, UUID is probably the best here. <br> 
+              **timestamp** - [Timestamp] Get this however you want. <br> 
+              **body** - [String] <br>
+               **author** - [String] <br>
+                **parentId** - Should match a post id in the database. */}
+          <Panel header="New Comment">
+            <form>
+              <FormGroup controlId="author">
+                <ControlLabel>Comment Author</ControlLabel>
+                <FormControl type="text" placeholder="Enter comment author" />
+              </FormGroup>
+              <FormGroup controlId="commentBody">
+                <ControlLabel>Comment Body</ControlLabel>
+                <FormControl componentClass="textarea" placeholder="Enter comment body" />
+              </FormGroup>
+            </form>
+          </Panel>
+        </Row>
       </div>
     )
   }
@@ -62,4 +82,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PostWithComments))
+export default connect(mapStateToProps)(PostWithComments)
