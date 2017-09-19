@@ -51,6 +51,13 @@ function comments ( state = initialCommentsState, action) {
   switch (action.type) {
     case actions.GET_POST_COMMENTS:
       return [...state, ...action.comments]
+    case actions.UPDATE_COMMENT_VOTESCORE:
+      return state.map(comment => {
+        if(comment.id === action.comment.id) {
+          return action.comment
+        }
+        return comment
+      })
     default:
       return state
   }
