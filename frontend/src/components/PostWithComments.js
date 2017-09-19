@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Row, Panel, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
-import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
 import Post from './Post' 
 import Comment from './Comment'
