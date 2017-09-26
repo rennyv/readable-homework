@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
-import { withRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changePostsOrder } from '../actions'
 
@@ -33,6 +33,9 @@ class PostList extends Component{
             </Link>
         ))}
       </Row>
+      <Row>
+          <Link to={`/post/new`}>New</Link>
+        </Row>
       </div>)
     }
 
@@ -50,6 +53,11 @@ class PostList extends Component{
               </Link>
           ))}
         </Row>
+        <Row>
+          <div className='pull-right'>
+            <Link to={`/post/new`}>New</Link>
+          </div>
+        </Row>
         <br />
         <Row>
           <ButtonGroup>
@@ -61,6 +69,7 @@ class PostList extends Component{
             <Button bsStyle={postsOrder === "timestamp" ? "primary" : "default"} onClick={() => changePostsOrder("timestamp")}>Timestamp<span className="glyphicon glyphicon-sort-by-order"></span></Button>
           </ButtonGroup>
         </Row>
+
         <br />
 
         <Row>

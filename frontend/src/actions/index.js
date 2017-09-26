@@ -3,6 +3,8 @@ import * as api from '../utils/api.js'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const UPDATE_POST_VOTESCORE = 'UPDATE_POST_VOTESCORE'
 
+export const UPDATE_NEW_POST = 'UPDATE_NEW_POST'
+
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
@@ -10,6 +12,18 @@ export const UPDATE_COMMENT_VOTESCORE = 'UPDATE_COMMENT_VOTESCORE'
 
 export const CHANGE_POST_ORDER = 'CHANGE_POST_ORDER'
 
+/*----------New Posts---------------*/
+
+export function updateNewPost(parameter, value){
+  return {
+    type: UPDATE_NEW_POST,
+    parameter,
+    value
+  }
+}
+
+
+/*----------Posts-------------------*/
 
 function gotPosts(posts){
   return {

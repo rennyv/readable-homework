@@ -5,6 +5,7 @@ import Post from './Post'
 import Comment from './Comment'
 
 class PostWithComments extends Component {
+  
 
   render() {
     const { comments, posts, history } = this.props

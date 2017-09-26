@@ -7,6 +7,7 @@ const initialPostsState = []
 const initialPostSort = "author" 
 const initialCategoriesState = []
 const initialCommentsState = []
+const initialNewPostState = { 'title':'', 'author':'', 'body':'', 'categories':'' }
 
 
 function posts (state = initialPostsState, action) {
@@ -27,6 +28,16 @@ function posts (state = initialPostsState, action) {
         default:
             return state
     }
+}
+
+function newPost (state = initialNewPostState, action){
+  switch (action.type){
+    case actions.UPDATE_NEW_POST:
+      state[action.parameter] = action.value
+      return state
+    default:
+      return state
+  }
 }
 
 function postsOrder (state = initialPostSort, action ){
@@ -66,6 +77,7 @@ function comments ( state = initialCommentsState, action) {
 export default combineReducers({
   posts,
   postsOrder,
+  newPost,
   categories,
   comments
 })
