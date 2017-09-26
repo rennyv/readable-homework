@@ -4,7 +4,9 @@ class PostCreate extends Component{
     render(){
         return (
             <div>
-              Post Create
+              <Form>
+
+            </Form> 
             </div>
         )
     }
