@@ -1,9 +1,11 @@
 import * as api from '../utils/api.js'
 
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
+export const GOT_NEW_POST = 'GOT_NEW_POST'
 export const UPDATE_POST_VOTESCORE = 'UPDATE_POST_VOTESCORE'
 
 export const UPDATE_NEW_POST = 'UPDATE_NEW_POST'
+export const RESET_NEW_POST = 'RESET_NEW_POST'
 
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
@@ -22,16 +24,30 @@ export function updateNewPost(parameter, value){
   }
 }
 
-/*export function createNewPost(newPost){
+function resetNewPost(){
+  return {
+    type: RESET_NEW_POST
+  }
+}
+
+export function createNewPost(newPost){
   return dispatch => {
-   // api.createNewPost(newPost).then((newComment) => {
-      dispatch(gotCommentVoteUpdate(newComment))
+    api.createNewPost(newPost).then((post) => {
+      dispatch(resetNewPost())
+      dispatch(gotNewPost(post))
     })    
   }
-}*/
+}
 
 
 /*----------Posts-------------------*/
+
+function gotNewPost(post){
+  return {
+    type: GOT_NEW_POST,
+    post
+  }
+}
 
 function gotPosts(posts){
   return {

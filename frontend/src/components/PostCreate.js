@@ -1,13 +1,12 @@
 import React, {Component} from 'react'
 import { FormGroup, FormControl, ControlLabel, Button, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateNewPost } from '../actions'
-import { uuidv4 } from '../utils/helpers'
+import { updateNewPost, createNewPost } from '../actions'
 
 class PostCreate extends Component{
   validatePost(e){
     e.preventDefault()
-    const { newPost,updateErrors, updateTimestamp, updateId } = this.props
+    const { newPost,updateErrors, createNewPost,history } = this.props
     let errors = []
     if (!newPost.author.trim().length>0){
       errors.push('No author')
@@ -24,8 +23,8 @@ class PostCreate extends Component{
 
     updateErrors(errors.join(','))
     if (!errors.length>0){
-      updateTimestamp(Date.now())
-      updateId(uuidv4())
+      createNewPost(newPost)
+      history.goBack()
     }
   }
   
@@ -41,11 +40,11 @@ class PostCreate extends Component{
         <form>
           <FormGroup>
             <ControlLabel>Post Title</ControlLabel>
-            <FormControl type="text" placeholder="Enter title" onChange={(event) => updateTitle(event.target.value)} />
+            <FormControl type="text" placeholder="Enter title" onChange={(event) => updateTitle(event.target.value)} value={newPost.title}/>
           </FormGroup>
           <FormGroup>
             <ControlLabel>Post Category</ControlLabel>
-            <FormControl componentClass="select" onChange={(event)=> updateCategory(event.target.value)}>
+            <FormControl componentClass="select" onChange={(event)=> updateCategory(event.target.value)} value={newPost.category}>
             <option value=''>Select Category</option>
               { categories.map((category) =>
                 <option key={category.name} value={category.name}>{category.name}</option>
@@ -54,11 +53,11 @@ class PostCreate extends Component{
           </FormGroup>
           <FormGroup>
             <ControlLabel>Post Author</ControlLabel>
-            <FormControl type="text" placeholder="Enter author" onChange={(event) => updateAuthor(event.target.value)} />
+            <FormControl type="text" placeholder="Enter author" onChange={(event) => updateAuthor(event.target.value)} value={newPost.author} />
           </FormGroup>
           <FormGroup controlId="body">
             <ControlLabel>Post Body</ControlLabel>
-            <FormControl componentClass="textarea" placeholder="Enter body" onChange={(event) => updateBody(event.target.value)} />
+            <FormControl componentClass="textarea" placeholder="Enter body" onChange={(event) => updateBody(event.target.value)} value={newPost.body} />
           </FormGroup>
           <Button onClick={(e)=>this.validatePost(e)}>Add Post</Button>
           <div>{newPost.error}</div>
@@ -86,8 +85,7 @@ function mapDispatchToProps(dispatch){
     updateBody : (value) => dispatch(updateNewPost('body', value)),
     updateCategory : (value) => dispatch(updateNewPost('category', value)),
     updateErrors : (value) => dispatch(updateNewPost('error', value)),
-    updateTimestamp : (value) => dispatch(updateNewPost('timestamp', value)),
-    updateId : (value) => dispatch(updateNewPost('id', value)),
+    createNewPost : (value) => dispatch(createNewPost(value))
   }
 }
 

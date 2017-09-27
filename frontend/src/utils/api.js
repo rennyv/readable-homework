@@ -1,4 +1,5 @@
 
+import * as helpers from './helpers'
 const api = process.env.REACT_READABLE_API_URL || 'http://localhost:3001'
 
 let token = localStorage.token
@@ -47,5 +48,19 @@ export const updateCommentVoteScore = (commentId, vote) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(body)
+  }).then(res => res.json())
+}
+
+export const createNewPost = (newPost) => {
+  newPost.timestamp = Date.now()
+  newPost.id = helpers.uuidv4()
+  console.log(newPost)
+  return fetch(`${api}/posts`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newPost)
   }).then(res => res.json())
 }

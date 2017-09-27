@@ -7,7 +7,7 @@ const initialPostsState = []
 const initialPostSort = "author" 
 const initialCategoriesState = []
 const initialCommentsState = []
-const initialNewPostState = { 'title':'', 'author':'', 'body':'', 'category':'', 'error': 'big asdf' }
+const initialNewPostState = { 'title':'', 'author':'', 'body':'', 'category':'', 'error': '' }
 
 
 function posts (state = initialPostsState, action) {
@@ -34,6 +34,8 @@ function newPost (state = initialNewPostState, action){
   switch (action.type){
     case actions.UPDATE_NEW_POST:
       return Object.assign({}, state, { [action.parameter]: action.value })
+    case actions.RESET_NEW_POST:
+      return Object.assign({},initialNewPostState)
     default:
       return state
   }
