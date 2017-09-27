@@ -22,6 +22,14 @@ export function updateNewPost(parameter, value){
   }
 }
 
+/*export function createNewPost(newPost){
+  return dispatch => {
+   // api.createNewPost(newPost).then((newComment) => {
+      dispatch(gotCommentVoteUpdate(newComment))
+    })    
+  }
+}*/
+
 
 /*----------Posts-------------------*/
 

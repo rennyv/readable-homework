@@ -1,15 +1,36 @@
 import React, {Component} from 'react'
-import { FormGroup, FormControl, ControlLabel, Button, Row} from 'react-bootstrap'
+import { FormGroup, FormControl, ControlLabel, Button, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { updateNewPost } from '../actions'
+import { uuidv4 } from '../utils/helpers'
 
 class PostCreate extends Component{
-  componentDidMount() {
-    console.log('here')
-  }
+  validatePost(e){
+    e.preventDefault()
+    const { newPost,updateErrors, updateTimestamp, updateId } = this.props
+    let errors = []
+    if (!newPost.author.trim().length>0){
+      errors.push('No author')
+    }
+    if (!newPost.body.trim().length>0){
+      errors.push('No Body')
+    }
+    if (!newPost.title.trim().length>0){
+      errors.push('No title')
+    }
+    if (!newPost.category.trim().length>0){
+      errors.push('No category selected')
+    }
 
+    updateErrors(errors.join(','))
+    if (!errors.length>0){
+      updateTimestamp(Date.now())
+      updateId(uuidv4())
+    }
+  }
+  
   render(){
-    const { history, updateTitle, updateBody, updateAuthor } = this.props
+    const { history, updateTitle, updateBody, updateAuthor, updateCategory, categories, newPost } = this.props
     return (
       
       <div>
@@ -18,19 +39,18 @@ class PostCreate extends Component{
         </Row>
         <Row>
         <form>
-          {/*  **id** - UUID should be fine, but any unique id will work <br> *
-          *timestamp** - [Timestamp] Can in whatever format you like, you can use `Date.now()` if you like. <br> 
-          **title** - [String] <br> 
-          **body** - [String] <br> 
-          **author** - [String] <br>
-          **category** -  Any of the categories listed in `categories.js`. Feel free to extend this list as you desire. | */}
           <FormGroup>
             <ControlLabel>Post Title</ControlLabel>
             <FormControl type="text" placeholder="Enter title" onChange={(event) => updateTitle(event.target.value)} />
           </FormGroup>
           <FormGroup>
             <ControlLabel>Post Category</ControlLabel>
-            <FormControl type="text" placeholder="Enter category" />
+            <FormControl componentClass="select" onChange={(event)=> updateCategory(event.target.value)}>
+            <option value=''>Select Category</option>
+              { categories.map((category) =>
+                <option key={category.name} value={category.name}>{category.name}</option>
+              )}
+            </FormControl>
           </FormGroup>
           <FormGroup>
             <ControlLabel>Post Author</ControlLabel>
@@ -40,7 +60,8 @@ class PostCreate extends Component{
             <ControlLabel>Post Body</ControlLabel>
             <FormControl componentClass="textarea" placeholder="Enter body" onChange={(event) => updateBody(event.target.value)} />
           </FormGroup>
-          <Button>Add Post</Button>
+          <Button onClick={(e)=>this.validatePost(e)}>Add Post</Button>
+          <div>{newPost.error}</div>
         </form>
         </Row>
       </div>
@@ -48,11 +69,13 @@ class PostCreate extends Component{
   }
 }
 
+
 function mapStateToProps(state) {
-  const { newPost } = state 
+  const { newPost, categories } = state 
   
   return {
-    newPost
+    newPost,
+    categories
   }
 }
 
@@ -61,6 +84,10 @@ function mapDispatchToProps(dispatch){
     updateTitle : (value) => dispatch(updateNewPost('title', value)),
     updateAuthor : (value) => dispatch(updateNewPost('author', value)),
     updateBody : (value) => dispatch(updateNewPost('body', value)),
+    updateCategory : (value) => dispatch(updateNewPost('category', value)),
+    updateErrors : (value) => dispatch(updateNewPost('error', value)),
+    updateTimestamp : (value) => dispatch(updateNewPost('timestamp', value)),
+    updateId : (value) => dispatch(updateNewPost('id', value)),
   }
 }
 
