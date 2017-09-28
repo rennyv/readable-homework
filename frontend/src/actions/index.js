@@ -3,6 +3,7 @@ import * as api from '../utils/api.js'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const GOT_NEW_POST = 'GOT_NEW_POST'
 export const UPDATE_POST_VOTESCORE = 'UPDATE_POST_VOTESCORE'
+export const REMOVE_POST = 'REMOVE_POST'
 
 export const UPDATE_NEW_POST = 'UPDATE_NEW_POST'
 export const RESET_NEW_POST = 'RESET_NEW_POST'
@@ -61,6 +62,21 @@ function gotCategories(categories){
   return {
     type: GET_ALL_CATEGORIES,
     categories
+  }
+}
+
+function removedPost(post){
+  return {
+    type: REMOVE_POST,
+    post
+  }
+}
+
+export function removePost(postId){
+  return dispatch => {
+    api.deletePost(postId).then((data) => {
+       dispatch(removedPost(data))
+    })
   }
 }
 

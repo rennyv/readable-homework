@@ -65,8 +65,11 @@ export const createNewPost = (newPost) => {
 }
 
 export const deletePost = (postId) => {
-  return fetch(`${api}/posts`, {
+  return fetch(`${api}/posts/${postId}`, {
     method: 'DELETE',
-    headers
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    }
   }).then(res => res.json())
 }

@@ -2,12 +2,12 @@ import React, { Component } from 'react'
 import { Panel, Button, Badge } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateVoteScore } from '../actions'
+import { updateVoteScore, removePost } from '../actions'
 
 class Post extends Component {
 
   render() {
-    const { post, comments, upVoteScore, downVoteScore } = this.props
+    const { post, comments, upVoteScore, downVoteScore, removePost } = this.props
     const myComments = comments.filter((comment) => comment.parentId === post.id && !comment.deleted)
 
     const postId = this.props.match.params.postId
@@ -17,7 +17,7 @@ class Post extends Component {
                       <span className='pull-right'>
                         { (!postId)  &&  <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link>  }
                         <Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button>
-                        <Button bsSize='xsmall'><span className='glyphicon glyphicon-remove'></span></Button>
+                        <Button bsSize='xsmall' onClick={() => removePost(post.id) }><span className='glyphicon glyphicon-remove'></span></Button>
                       </span>
                     </div>)
     const footer = (
@@ -54,6 +54,7 @@ function mapDispatchToProps(dispatch){
   return {
     upVoteScore : (postId) => dispatch(updateVoteScore(postId, "upVote")),
     downVoteScore : (postId) => dispatch(updateVoteScore(postId, "downVote")),
+    removePost : (postId) => dispatch(removePost(postId))
   }
 }
 

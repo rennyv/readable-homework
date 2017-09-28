@@ -88,8 +88,10 @@ class PostList extends Component{
 function mapStateToProps(state) {
   const { posts, categories, postsOrder } = state
   
+  let filterPosts = posts.filter((post) => {return !post.deleted})
+
   return {
-    posts,
+    posts: filterPosts,
     postsOrder,
     categories
   }

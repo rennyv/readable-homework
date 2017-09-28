@@ -19,10 +19,17 @@ function posts (state = initialPostsState, action) {
           return [...state].sort(sortBy(action.order))
         case actions.GOT_NEW_POST:
           return [...state, action.post]
+        case actions.REMOVE_POST:
+          return [...state].map((post) => {
+            if(post.id === action.post.id){
+              return action.post
+            }
+            return post
+          })
         case actions.UPDATE_POST_VOTESCORE:
           return state.map(post => {
             if(post.id === action.post.id) {
-              return action.post
+              return Object.assign({}, action.post, {'voteScore': action.post.voteScore})
             }
             return post
           })

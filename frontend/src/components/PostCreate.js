@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import { FormGroup, FormControl, ControlLabel, Button, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateNewPost, createNewPost, changePostsOrder } from '../actions'
+import { updateNewPost, createNewPost } from '../actions'
 
 class PostCreate extends Component{
   validatePost(e){
     e.preventDefault()
-    const { newPost, postsOrder, updateErrors, createNewPost, changePostsOrder, history } = this.props
+    const { newPost, postsOrder, updateErrors, createNewPost, history } = this.props
     let errors = []
     if (!newPost.author.trim().length>0){
       errors.push('No author')
