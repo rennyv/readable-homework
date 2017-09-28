@@ -54,7 +54,6 @@ export const updateCommentVoteScore = (commentId, vote) => {
 export const createNewPost = (newPost) => {
   newPost.timestamp = Date.now()
   newPost.id = helpers.uuidv4()
-  console.log(newPost)
   return fetch(`${api}/posts`,{
     method: 'POST',
     headers: {
@@ -62,5 +61,12 @@ export const createNewPost = (newPost) => {
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(newPost)
+  }).then(res => res.json())
+}
+
+export const deletePost = (postId) => {
+  return fetch(`${api}/posts`, {
+    method: 'DELETE',
+    headers
   }).then(res => res.json())
 }
