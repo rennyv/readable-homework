@@ -8,7 +8,7 @@ class Post extends Component {
 
   render() {
     const { post, comments, upVoteScore, downVoteScore } = this.props
-    const myComments = comments.filter((comment) => comment.parentId !== post.id && !comment.deleted)
+    const myComments = comments.filter((comment) => comment.parentId === post.id && !comment.deleted)
 
     const postId = this.props.match.params.postId
 

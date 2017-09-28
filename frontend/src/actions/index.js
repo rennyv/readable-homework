@@ -30,11 +30,12 @@ function resetNewPost(){
   }
 }
 
-export function createNewPost(newPost){
+export function createNewPost(newPost, order){
   return dispatch => {
     api.createNewPost(newPost).then((post) => {
       dispatch(resetNewPost())
       dispatch(gotNewPost(post))
+      dispatch(changePostsOrder(order))
     })    
   }
 }

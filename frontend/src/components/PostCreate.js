@@ -1,12 +1,12 @@
 import React, {Component} from 'react'
 import { FormGroup, FormControl, ControlLabel, Button, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateNewPost, createNewPost } from '../actions'
+import { updateNewPost, createNewPost, changePostsOrder } from '../actions'
 
 class PostCreate extends Component{
   validatePost(e){
     e.preventDefault()
-    const { newPost,updateErrors, createNewPost,history } = this.props
+    const { newPost, postsOrder, updateErrors, createNewPost, changePostsOrder, history } = this.props
     let errors = []
     if (!newPost.author.trim().length>0){
       errors.push('No author')
@@ -23,7 +23,7 @@ class PostCreate extends Component{
 
     updateErrors(errors.join(','))
     if (!errors.length>0){
-      createNewPost(newPost)
+      createNewPost(newPost, postsOrder)
       history.goBack()
     }
   }
@@ -70,11 +70,12 @@ class PostCreate extends Component{
 
 
 function mapStateToProps(state) {
-  const { newPost, categories } = state 
+  const { newPost, categories, postsOrder } = state 
   
   return {
     newPost,
-    categories
+    categories,
+    postsOrder
   }
 }
 
@@ -85,7 +86,7 @@ function mapDispatchToProps(dispatch){
     updateBody : (value) => dispatch(updateNewPost('body', value)),
     updateCategory : (value) => dispatch(updateNewPost('category', value)),
     updateErrors : (value) => dispatch(updateNewPost('error', value)),
-    createNewPost : (value) => dispatch(createNewPost(value))
+    createNewPost : (value, order) => dispatch(createNewPost(value, order)),
   }
 }
 

@@ -16,8 +16,9 @@ function posts (state = initialPostsState, action) {
         case actions.GET_ALL_POSTS:
           return action.posts
         case actions.CHANGE_POST_ORDER:
-          let newState = state.slice().sort(sortBy(action.order))
-          return newState
+          return [...state].sort(sortBy(action.order))
+        case actions.GOT_NEW_POST:
+          return [...state, action.post]
         case actions.UPDATE_POST_VOTESCORE:
           return state.map(post => {
             if(post.id === action.post.id) {
