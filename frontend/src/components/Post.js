@@ -15,7 +15,7 @@ class Post extends Component {
     const header = (<div>
                       <span>{post.title}</span>{ (myComments.length>0) ? (<Badge>{myComments.length }</Badge> ) :  (<span />) } 
                       <span className='pull-right'>
-                        { (!postId)  ?  <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link> : <span />  }
+                        { (!postId)  &&  <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link>  }
                         <Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button>
                         <Button bsSize='xsmall'><span className='glyphicon glyphicon-remove'></span></Button>
                       </span>
