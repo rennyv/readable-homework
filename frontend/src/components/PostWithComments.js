@@ -30,7 +30,7 @@ class PostWithComments extends Component {
         </div>)
     }
 
-    const postComments = comments.filter((comment) => comment.parentId !== postId )
+    const postComments = comments.filter((comment) => comment.parentId === postId )
 
     return (
       <div>
