@@ -1,5 +1,5 @@
 import * as actions from '../actions'
-import sortBy from 'sort-by'
+//import sortBy from 'sort-by'
 
 import { combineReducers } from 'redux'
 
@@ -15,8 +15,6 @@ function posts (state = initialPostsState, action) {
     switch (action.type) {
         case actions.GET_ALL_POSTS:
           return action.posts
-        case actions.CHANGE_POST_ORDER:
-          return [...state].sort(sortBy(action.order))
         case actions.GOT_NEW_POST:
           return [...state, action.post]
         case actions.REMOVE_POST:

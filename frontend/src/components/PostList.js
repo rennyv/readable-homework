@@ -4,6 +4,7 @@ import { Row, Button, ButtonGroup } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changePostsOrder } from '../actions'
+import sortBy from 'sort-by'
 
 class PostList extends Component{
   render(){
@@ -89,9 +90,10 @@ function mapStateToProps(state) {
   const { posts, categories, postsOrder } = state
   
   let filterPosts = posts.filter((post) => {return !post.deleted})
+  let orderedPosts = filterPosts.sort(sortBy(postsOrder))
 
   return {
-    posts: filterPosts,
+    posts: orderedPosts,
     postsOrder,
     categories
   }
