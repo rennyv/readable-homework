@@ -1,6 +1,4 @@
 import * as actions from '../actions'
-//import sortBy from 'sort-by'
-
 import { combineReducers } from 'redux'
 
 const initialPostsState = []
@@ -17,6 +15,7 @@ function posts (state = initialPostsState, action) {
           return action.posts
         case actions.GOT_NEW_POST:
           return [...state, action.post]
+        case actions.CHANGE_POST:
         case actions.REMOVE_POST:
           return [...state].map((post) => {
             if(post.id === action.post.id){
@@ -76,6 +75,8 @@ function comments ( state = initialCommentsState, action) {
         }
         return comment
       })
+    case actions.GOT_NEW_COMMENT:
+      return [...state, action.comment]
     default:
       return state
   }

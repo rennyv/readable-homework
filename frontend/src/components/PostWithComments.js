@@ -1,11 +1,34 @@
 import React, { Component } from 'react'
-import { Row, Panel, FormGroup, ControlLabel, FormControl } from 'react-bootstrap'
+import { Row, Panel, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Post from './Post' 
 import Comment from './Comment'
+import { addComment } from '../actions'
 
 class PostWithComments extends Component {
-  
+  state = {
+    commentAuthor: '',
+    commentBody: ''
+  }
+
+  onAuthorChange(val){
+    this.setState({
+      commentBody: val
+    })
+  }
+
+  onBodyChange(val){
+    this.setState({
+      commentAuthor: val
+    })
+  }
+
+  validateComment(){
+    const parentId = this.props.match.params.postId
+    const { commentAuthor, commentBody } = this.state
+    const { addComment } = this.props
+    addComment({parentId, author: commentAuthor, body: commentBody})
+  }
 
   render() {
     const { comments, posts, history } = this.props
@@ -50,21 +73,17 @@ class PostWithComments extends Component {
         ))}
         <br />
         <Row>
-              { /* **id** - Any unique ID. As with posts, UUID is probably the best here. <br> 
-              **timestamp** - [Timestamp] Get this however you want. <br> 
-              **body** - [String] <br>
-               **author** - [String] <br>
-                **parentId** - Should match a post id in the database. */}
           <Panel header="New Comment">
             <form>
               <FormGroup controlId="author">
                 <ControlLabel>Comment Author</ControlLabel>
-                <FormControl type="text" placeholder="Enter comment author" />
+                <FormControl type="text" onChange={(e) => this.onAuthorChange(e.target.value)} placeholder="Enter comment author" />
               </FormGroup>
               <FormGroup controlId="commentBody">
                 <ControlLabel>Comment Body</ControlLabel>
-                <FormControl componentClass="textarea" placeholder="Enter comment body" />
+                <FormControl componentClass="textarea" onChange={(e) => this.onBodyChange(e.target.value)} placeholder="Enter comment body" />
               </FormGroup>
+              <Button onClick={() => this.validateComment()}>Add Comment</Button>
             </form>
           </Panel>
         </Row>
@@ -82,4 +101,10 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(PostWithComments)
+function mapDispatchToProps(dispatch){
+  return {
+    addComment : (newComment) => dispatch(addComment(newComment)) 
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PostWithComments)

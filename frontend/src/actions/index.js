@@ -12,8 +12,10 @@ export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
 export const UPDATE_COMMENT_VOTESCORE = 'UPDATE_COMMENT_VOTESCORE'
+export const GOT_NEW_COMMENT = 'GOT_NEW_COMMENT'
 
 export const CHANGE_POST_ORDER = 'CHANGE_POST_ORDER'
+export const CHANGE_POST = 'CHANGE_POST'
 
 /*----------New Posts---------------*/
 
@@ -44,6 +46,21 @@ export function createNewPost(newPost, order){
 
 /*----------Posts-------------------*/
 
+export function updatePost(postId, title, body){
+   return dispatch => {
+      api.updatePost(postId, title, body).then((post) => {
+        dispatch(changePost(post))
+      })
+   }
+}
+
+function changePost(post){
+  return {
+    type: CHANGE_POST,
+    post
+  }
+}
+
 function gotNewPost(post){
   return {
     type: GOT_NEW_POST,
@@ -55,13 +72,6 @@ function gotPosts(posts){
   return {
     type: GET_ALL_POSTS,
     posts
-  }
-}
-
-function gotCategories(categories){
-  return {
-    type: GET_ALL_CATEGORIES,
-    categories
   }
 }
 
@@ -100,13 +110,6 @@ function gotVoteUpdate(post){
   }
 }
 
-function gotCommentVoteUpdate(comment){
-  return {
-    type: UPDATE_COMMENT_VOTESCORE,
-    comment
-  }
-}
-
 export function updateVoteScore(postId, vote){
   return dispatch => {
     api.updatePostVoteScore(postId, vote).then((newPost) => {
@@ -115,26 +118,20 @@ export function updateVoteScore(postId, vote){
   }
 }
 
+//********** Comments ***********
+
+function gotCommentVoteUpdate(comment){
+  return {
+    type: UPDATE_COMMENT_VOTESCORE,
+    comment
+  }
+}
+
 export function updateCommentVoteScore(commentId, vote){
   return dispatch => {
     api.updateCommentVoteScore(commentId, vote).then((newComment) => {
       dispatch(gotCommentVoteUpdate(newComment))
     })    
-  }
-}
-
-export function changePostsOrder(order) {
-  return {
-    type: CHANGE_POST_ORDER,
-    order
-  }
-}
-
-export function getAllCategories() {
-  return dispatch => {
-    api.getAllCategories().then ((data) => {
-      dispatch(gotCategories(data))
-    })
   }
 }
 
@@ -148,3 +145,39 @@ export function getComments(postId) {
     })
   }
 }
+
+export function addComment(newComment){
+  return dispatch => {
+    api.createNewComment(newComment).then((comment) => {
+      dispatch({
+        type: GOT_NEW_COMMENT,
+        comment
+      })
+    })}  
+}
+
+//************ Post Order ***************
+export function changePostsOrder(order) {
+  return {
+    type: CHANGE_POST_ORDER,
+    order
+  }
+}
+
+//********* Categories **************
+export function getAllCategories() {
+  return dispatch => {
+    api.getAllCategories().then ((data) => {
+      dispatch(gotCategories(data))
+    })
+  }
+}
+
+function gotCategories(categories){
+  return {
+    type: GET_ALL_CATEGORIES,
+    categories
+  }
+}
+
+

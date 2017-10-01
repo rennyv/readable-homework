@@ -73,3 +73,31 @@ export const deletePost = (postId) => {
     }
   }).then(res => res.json())
 }
+
+export const updatePost = (postId, title, body) => {
+  let editBody = {
+    title,
+    body
+  }
+  return fetch(`${api}/posts/${postId}`, {
+    method: 'PUT',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(editBody)
+    }).then(res => res.json())
+}
+
+export const createNewComment = (newComment) => {
+  newComment.timestamp = Date.now()
+  newComment.id = helpers.uuidv4()
+  return fetch(`${api}/comments`,{
+    method: 'POST',
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(newComment)
+  }).then(res => res.json())
+}

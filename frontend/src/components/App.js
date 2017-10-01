@@ -5,6 +5,7 @@ import { Grid } from 'react-bootstrap'
 import PostList from './PostList'
 import PostWithComments from './PostWithComments'
 import PostCreate from './PostCreate'
+import PostEdit from './PostEdit'
 import { getAllPosts, getAllCategories } from '../actions'
 
 
@@ -22,6 +23,7 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={PostList} />
             <Route exact path="/post/new" component={PostCreate} />
+            <Route exact path="/post/:postId" component={PostEdit} />
             <Route exact path="/:category" component={PostList} />
             <Route exact path={'/:category/:postId'} component={PostWithComments} />            
           </Switch>

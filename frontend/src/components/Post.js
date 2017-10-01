@@ -5,19 +5,26 @@ import { connect } from 'react-redux'
 import { updateVoteScore, removePost } from '../actions'
 
 class Post extends Component {
+  deletedPost(postId){
+    const { removePost, history } = this.props
+    removePost(postId)
+    if(this.props.match.params.postId){
+      history.goBack()
+    }
+  }
 
   render() {
-    const { post, comments, upVoteScore, downVoteScore, removePost } = this.props
+    const { post, comments, upVoteScore, downVoteScore } = this.props
     const myComments = comments.filter((comment) => comment.parentId === post.id && !comment.deleted)
 
     const postId = this.props.match.params.postId
 
     const header = (<div>
-                      <span>{post.title}</span>{ (myComments.length>0) ? (<Badge>{myComments.length }</Badge> ) :  (<span />) } 
+                      <span>{post.title} </span>{ (myComments.length>0) ? (<Badge>{myComments.length }</Badge> ) :  (<span />) } 
                       <span className='pull-right'>
                         { (!postId)  &&  <Link to={`/${post.category}/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-info-sign'></span></Button></Link>  }
-                        <Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button>
-                        <Button bsSize='xsmall' onClick={() => removePost(post.id) }><span className='glyphicon glyphicon-remove'></span></Button>
+                        <Link to={`/post/${post.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button></Link>
+                        <Button bsSize='xsmall' onClick={() => this.deletedPost(post.id) }><span className='glyphicon glyphicon-remove'></span></Button>
                       </span>
                     </div>)
     const footer = (
@@ -36,7 +43,7 @@ class Post extends Component {
     )
     
     return (
-      <Panel header={ header } footer={ footer } bsStyle="info">
+      <Panel header={ header } footer={ footer } bsStyle="primary">
         { post.body }
       </Panel>
     )

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Panel, Button, Badge } from 'react-bootstrap'
-import { Link, withRouter } from 'react-router-dom'
+import { Panel, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { updateCommentVoteScore } from '../actions'
 
@@ -49,4 +48,4 @@ function mapDispatchToProps(dispatch){
   }
 }
 
-export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Comment))
+export default connect(mapStateToProps,mapDispatchToProps)(Comment)
