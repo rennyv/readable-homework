@@ -21,6 +21,7 @@ class CommentEdit extends Component {
     const { history, editComment, comments } = this.props
     if(!newBody){
       history.goBack()
+      return
     }
    
     const commentId = this.props.match.params.commentId

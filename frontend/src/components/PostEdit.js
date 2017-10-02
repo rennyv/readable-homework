@@ -28,6 +28,7 @@ class PostEdit extends Component {
     const { history, editPost, posts } = this.props
     if(!newBody && !newTitle){
       history.goBack()
+      return
     }
    
     const postId = this.props.match.params.postId
