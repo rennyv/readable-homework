@@ -13,6 +13,8 @@ export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const GET_POST_COMMENTS = 'GET_POST_COMMENTS'
 export const UPDATE_COMMENT_VOTESCORE = 'UPDATE_COMMENT_VOTESCORE'
 export const GOT_NEW_COMMENT = 'GOT_NEW_COMMENT'
+export const UPDATE_COMMENT = 'UPDATE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 
 export const CHANGE_POST_ORDER = 'CHANGE_POST_ORDER'
 export const CHANGE_POST = 'CHANGE_POST'
@@ -75,17 +77,13 @@ function gotPosts(posts){
   }
 }
 
-function removedPost(post){
-  return {
-    type: REMOVE_POST,
-    post
-  }
-}
-
 export function removePost(postId){
   return dispatch => {
-    api.deletePost(postId).then((data) => {
-       dispatch(removedPost(data))
+    api.deletePost(postId).then((post) => {
+       dispatch({
+        type: REMOVE_POST,
+        post
+      })
     })
   }
 }
@@ -154,6 +152,28 @@ export function addComment(newComment){
         comment
       })
     })}  
+}
+
+export function updateComment(commentId, body){
+  return dispatch => {
+     api.updateComment(commentId, body).then((comment) => {
+       dispatch({
+         type: UPDATE_COMMENT,
+         comment
+       })
+     })
+  }
+}
+
+export function removeComment(commentId){
+  return dispatch => {
+    api.deleteComment(commentId).then((comment) => {
+      dispatch({
+        type: REMOVE_COMMENT,
+        comment
+      })
+    })
+  }
 }
 
 //************ Post Order ***************

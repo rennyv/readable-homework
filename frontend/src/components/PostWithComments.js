@@ -54,7 +54,7 @@ class PostWithComments extends Component {
     }
 
     const postComments = comments.filter((comment) => comment.parentId === postId )
-
+    //comments.filter((comment) => comment.parentId === post.id && !comment.deleted)
     return (
       <div>
         <Row>
@@ -95,8 +95,10 @@ class PostWithComments extends Component {
 function mapStateToProps(state) {
   const { posts, comments } = state 
   
+  const filterComments = comments.filter((comment) => {return !comment.deleted})
+
   return {
-    comments,
+    comments: filterComments,
     posts
   }
 }

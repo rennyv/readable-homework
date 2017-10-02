@@ -1,17 +1,18 @@
 import React, { Component } from 'react'
 import { Panel, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateCommentVoteScore } from '../actions'
+import { Link, withRouter } from 'react-router-dom'
+import { updateCommentVoteScore, removeComment } from '../actions'
 
 class Comment extends Component {
   render() {
-    const { comment, upVoteScore, downVoteScore } = this.props
+    const { comment, upVoteScore, downVoteScore, removeComment } = this.props
     const header = (
       <div>
         <span>Comment</span>
         <span className='pull-right'>
-          <Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button>
-          <Button bsSize='xsmall'><span className='glyphicon glyphicon-remove'></span></Button>
+          <Link to={`/comment/${comment.id}`}><Button bsSize='xsmall'><span className='glyphicon glyphicon-pencil'></span></Button></Link>
+          <Button bsSize='xsmall' onClick={() => removeComment(comment.id) }><span className='glyphicon glyphicon-remove'></span></Button>
         </span>
       </div>)
 
@@ -45,7 +46,8 @@ function mapDispatchToProps(dispatch){
   return { 
     upVoteScore : (commentId) => dispatch(updateCommentVoteScore(commentId, "upVote")),
     downVoteScore : (commentId) => dispatch(updateCommentVoteScore(commentId, "downVote")),
+    removeComment : (commentId) => dispatch(removeComment(commentId))
   }
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Comment)
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Comment))
