@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { FormGroup, FormControl, ControlLabel, Button, Row } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateNewPost, createNewPost } from '../actions'
+import { updateNewPost, createNewPost } from '../actions/newPosts'
 
 class PostCreate extends Component{
   validatePost(e){

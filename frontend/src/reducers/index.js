@@ -1,4 +1,3 @@
-import * as actions from '../actions'
 import { comments } from './comments'
 import { posts } from './posts'
 import { newPost } from './newPost'

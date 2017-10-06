@@ -7,7 +7,8 @@ import PostWithComments from './PostWithComments'
 import PostCreate from './PostCreate'
 import PostEdit from './PostEdit'
 import CommentEdit from './CommentEdit'
-import { getAllPosts, getAllCategories } from '../actions'
+import { getAllPosts } from '../actions/posts'
+import { getAllCategories } from '../actions/categories'
 
 
 class App extends Component {
@@ -64,11 +65,4 @@ function mapStateToProps(state){
   return { categories }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-      getAllCategories : () => dispatch(getAllCategories()),
-      getAllPosts : () => dispatch(getAllPosts()),
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))
+export default withRouter(connect(mapStateToProps, { getAllCategories, getAllPosts })(App))

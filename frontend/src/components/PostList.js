@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { changePostsOrder } from '../actions'
+import { changePostsOrder } from '../actions/postOrder'
 import sortBy from 'sort-by'
 
 class PostList extends Component{
@@ -57,12 +57,5 @@ function mapStateToProps(state) {
     categories
   }
 }
-
-function mapDispatchToProps(dispatch){
-  return {
-    changePostsOrder : (order) => dispatch(changePostsOrder(order)),
-  }
-}
-
   
-export default connect(mapStateToProps, mapDispatchToProps)(PostList)
+export default connect(mapStateToProps, { changePostsOrder })(PostList)

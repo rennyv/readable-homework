@@ -3,7 +3,7 @@ import { Row, Panel, FormGroup, ControlLabel, FormControl, Button } from 'react-
 import { connect } from 'react-redux'
 import Post from './Post' 
 import Comment from './Comment'
-import { addComment } from '../actions'
+import { addComment } from '../actions/comments'
 
 class PostWithComments extends Component {
   state = {
@@ -103,10 +103,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    addComment : (newComment) => dispatch(addComment(newComment)) 
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostWithComments)
+export default connect(mapStateToProps, { addComment })(PostWithComments)

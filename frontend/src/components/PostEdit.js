@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Row, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updatePost } from '../actions'
+import { updatePost } from '../actions/posts'
 
 
 class PostEdit extends Component {
@@ -25,7 +25,7 @@ class PostEdit extends Component {
   validatePost(e) {
     e.preventDefault()
     const { newBody, newTitle } = this.state
-    const { history, editPost, posts } = this.props
+    const { history, updatePost, posts } = this.props
     if(!newBody && !newTitle){
       history.goBack()
       return
@@ -38,7 +38,7 @@ class PostEdit extends Component {
       let post =  postList[0]
       let title = newTitle ? newTitle : post.title
       let body = newBody ? newBody : post.body
-      editPost(postId, title, body)
+      updatePost(postId, title, body)
       history.goBack()
     }
   }
@@ -49,7 +49,7 @@ class PostEdit extends Component {
     const postId = this.props.match.params.postId
 
     const header = (<div>
-                      Edit Post:
+                      Edit Post
                     </div>)
 
 let postList = posts.filter((p)=> { return p.id === postId})
@@ -99,10 +99,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    editPost : (postId, title, body) => dispatch(updatePost(postId, title, body)) 
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(PostEdit)
+export default connect(mapStateToProps,{ updatePost })(PostEdit)

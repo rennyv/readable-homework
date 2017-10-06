@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Row, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateComment } from '../actions'
+import { updateComment } from '../actions/comments'
 
 
 class CommentEdit extends Component {
@@ -18,7 +18,7 @@ class CommentEdit extends Component {
   validateComment(e) {
     e.preventDefault()
     const { newBody } = this.state
-    const { history, editComment, comments } = this.props
+    const { history, updateComment, comments } = this.props
     if(!newBody){
       history.goBack()
       return
@@ -30,7 +30,7 @@ class CommentEdit extends Component {
     if(commentList[0]) {
       let comment =  commentList[0]
       let body = newBody ? newBody : comment.body
-      editComment(commentId, body)
+      updateComment(commentId, body)
       history.goBack()
     }
   }
@@ -87,10 +87,4 @@ function mapStateToProps(state) {
   }
 }
 
-function mapDispatchToProps(dispatch){
-  return {
-    editComment : (commentId, body) => dispatch(updateComment(commentId, body)) 
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(CommentEdit)
+export default connect(mapStateToProps,{ updateComment })(CommentEdit)
