@@ -1,14 +1,13 @@
 import React, {Component} from 'react'
 import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { changePostsOrder } from '../actions'
 import sortBy from 'sort-by'
 
 class PostList extends Component{
   render(){
-    const { posts, categories, postsOrder, changePostsOrder } = this.props
+    const { posts, postsOrder, changePostsOrder } = this.props
 
     const filter = this.props.match.params.category
     let curPosts = []
@@ -41,8 +40,6 @@ class PostList extends Component{
               <Post key={post.id} post={post} />
           ))}
         </Row>
-
-
       </div>
     )
   }

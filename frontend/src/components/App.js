@@ -18,7 +18,7 @@ class App extends Component {
   }
 
   render() {
-    const { categories,  match } = this.props
+    const { categories } = this.props
 
     return (
       <div className="app">
