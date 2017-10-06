@@ -83,7 +83,7 @@ let postList = posts.filter((p)=> { return p.id === postId})
                 <ControlLabel>Body</ControlLabel>
                 <FormControl componentClass="textarea" onChange={(e)=>this.onBodyChange(e.target.value)} defaultValue={post.body} />
               </FormGroup>
-              <Button onClick={(e)=>this.validatePost(e)}>Sumbit</Button>
+              <Button onClick={(e)=>this.validatePost(e)}>Submit</Button>
             </form>
           </Panel>
         </Row>

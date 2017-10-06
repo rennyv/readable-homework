@@ -71,7 +71,7 @@ class CommentEdit extends Component {
                 <ControlLabel>Body</ControlLabel>
                 <FormControl componentClass="textarea" onChange={(e)=>this.onBodyChange(e.target.value)} defaultValue={comment.body} />
               </FormGroup>
-              <Button onClick={(e)=>this.validateComment(e)}>Sumbit</Button>
+              <Button onClick={(e)=>this.validateComment(e)}>Submit</Button>
             </form>
           </Panel>
         </Row>
