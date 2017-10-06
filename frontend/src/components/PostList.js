@@ -20,46 +20,8 @@ class PostList extends Component{
       curPosts = posts
     }
 
-    if (!(curPosts.length > 0 )) {
-      return (<div>
-        <br />
-        <Row>
-        <Link to='/'>
-          <Button bsStyle={!filter ? "primary" : "default"}>All</Button>
-        </Link>
-        {
-          categories.map((category) => (
-            <Link key={category.name} to={category.path}>
-              <Button bsStyle={filter === category.path ? "primary" : "default"}>{category.name}</Button>
-            </Link>
-        ))}
-      </Row>
-      <Row>
-          <Link to={`/post/new`}>New</Link>
-        </Row>
-      </div>)
-    }
-
     return (
       <div>
-        <br />
-        <Row>
-          <Link to='/'>
-            <Button bsStyle={!filter ? "primary" : "default"}>All</Button>
-          </Link>
-          {
-            categories.map((category) => (
-              <Link key={category.name} to={category.path}>
-                <Button bsStyle={filter === category.path ? "primary" : "default"}>{category.name}</Button>
-              </Link>
-          ))}
-        </Row>
-        <Row>
-          <div className='pull-right'>
-            <Link to={`/post/new`}>New</Link>
-          </div>
-        </Row>
-        <br />
         <Row>
           <ButtonGroup>
             <Button bsStyle={postsOrder === "author" ? "primary" : "default"} onClick={() => changePostsOrder("author")}>Author<span className="glyphicon glyphicon-sort-by-alphabet"></span></Button>

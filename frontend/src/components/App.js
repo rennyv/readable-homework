@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Switch, Route, withRouter } from 'react-router-dom'
-import { Grid } from 'react-bootstrap'
+import { Switch, Route, withRouter, Link } from 'react-router-dom'
+import { Grid, Navbar, Nav, NavItem } from 'react-bootstrap'
 import PostList from './PostList'
 import PostWithComments from './PostWithComments'
 import PostCreate from './PostCreate'
@@ -18,15 +18,39 @@ class App extends Component {
   }
 
   render() {
+    const { categories,  match } = this.props
+
     return (
       <div className="app">
+        <Navbar>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <Link to='/'>Readable</Link>
+            </Navbar.Brand>
+          </Navbar.Header>
+          <Nav>
+          { (categories) && categories.map((category, idx) => (
+            <NavItem key={category.name+category.path}>
+              <Link to={`/${category.path}`}>
+                  {category.name}
+                </Link>
+            </NavItem>
+          ))}
+
+          </Nav>
+          <Nav pullRight>
+            <NavItem>
+              <Link to={`/post/new`}>New</Link>
+            </NavItem>
+          </Nav>          
+        </Navbar>
         <Grid>
           <Switch>
             <Route exact path="/" component={PostList} />
+            <Route exact path="/:category" component={PostList} />
             <Route exact path="/post/new" component={PostCreate} />
             <Route exact path="/post/:postId" component={PostEdit} />
             <Route exact path="/comment/:commentId" component={CommentEdit} />
-            <Route exact path="/:category" component={PostList} />
             <Route exact path={'/:category/:postId'} component={PostWithComments} />            
           </Switch>
         </Grid>
@@ -36,7 +60,8 @@ class App extends Component {
 }
 
 function mapStateToProps(state){
-  return { }
+  const { categories } = state
+  return { categories }
 }
 
 function mapDispatchToProps(dispatch){
