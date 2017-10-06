@@ -1,6 +1,6 @@
 import * as api from '../utils/api.js'
-import * as types from './types'
-import { changePostsOrder } from './postOrder'
+import * as types from '../app/types'
+import { changePostsOrder } from '../postsOrder/postOrderActions'
 
 export function updateNewPost(parameter, value){
     return {

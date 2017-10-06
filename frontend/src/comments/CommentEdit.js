@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Row, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updateComment } from '../actions/comments'
-
+import { updateComment } from './commentsActions'
 
 class CommentEdit extends Component {
   state = {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Panel, Row, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { updatePost } from '../actions/posts'
+import { updatePost } from './postsActions'
 
 
 class PostEdit extends Component {

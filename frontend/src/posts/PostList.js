@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import Post from './Post'
 import { Row, Button, ButtonGroup } from 'react-bootstrap'
 import { connect } from 'react-redux'
-import { changePostsOrder } from '../actions/postOrder'
+import { changePostsOrder } from '../postsOrder/postOrderActions'
 import sortBy from 'sort-by'
 
 class PostList extends Component{

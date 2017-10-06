@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Panel, Button, Badge } from 'react-bootstrap'
 import { Link, withRouter } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { updateVoteScore, removePost } from '../actions/posts'
+import { updateVoteScore, removePost } from './postsActions'
 
 class Post extends Component {
   deletedPost(postId){

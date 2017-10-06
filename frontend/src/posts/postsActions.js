@@ -1,7 +1,7 @@
 import * as api from '../utils/api.js'
-import * as types from './types'
-import { changePostsOrder } from './postOrder'
-import { getComments } from './comments'
+import * as types from '../app/types'
+import { changePostsOrder } from '../postsOrder/postOrderActions'
+import { getComments } from '../comments/commentsActions'
 
 export function updatePost(postId, title, body){
     return dispatch => {

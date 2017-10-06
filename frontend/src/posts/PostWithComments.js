@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Row, Panel, FormGroup, ControlLabel, FormControl, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import Post from './Post' 
-import Comment from './Comment'
-import { addComment } from '../actions/comments'
+import Comment from '../comments/Comment'
+import { addComment } from '../comments/commentsActions'
 
 class PostWithComments extends Component {
   state = {

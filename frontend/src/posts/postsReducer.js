@@ -1,4 +1,4 @@
-import * as actions from '../actions/types'
+import * as actions from '../app/types'
 
 const initialPostsState = []
 

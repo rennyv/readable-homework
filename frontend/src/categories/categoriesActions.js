@@ -1,5 +1,5 @@
 import * as api from '../utils/api.js'
-import * as types from './types'
+import * as types from '../app/types'
 
 export function getAllCategories() {
   return dispatch => {

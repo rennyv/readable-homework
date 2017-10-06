@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Panel, Button } from 'react-bootstrap'
 import { connect } from 'react-redux'
 import { Link, withRouter } from 'react-router-dom'
-import { updateCommentVoteScore, removeComment } from '../actions/comments'
+import { updateCommentVoteScore, removeComment } from './commentsActions'
 
 class Comment extends Component {
   render() {
